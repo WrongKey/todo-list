@@ -3,7 +3,7 @@ import { MigrationInterface, QueryRunner } from 'typeorm'
 export class createTaskTable1678634119623 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.query(`
-      CREATE TABLE task (
+      CREATE TABLE "task" (
         id serial4 NOT NULL,
         title varchar NOT NULL,
         description varchar NULL,

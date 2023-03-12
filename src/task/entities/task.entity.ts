@@ -27,9 +27,13 @@ export class Task extends BaseEntity {
   @ManyToOne(() => User, (user) => user.tasks)
   creator: User
 
-  @OneToMany(() => Comment, (comment) => comment.task)
+  @OneToMany(() => Comment, (comment) => comment.task, {
+    onDelete: 'CASCADE',
+  })
   comments: Comment[]
 
-  @OneToMany(() => TaskChangeHistory, (changeHistory) => changeHistory.task)
+  @OneToMany(() => TaskChangeHistory, (changeHistory) => changeHistory.task, {
+    onDelete: 'CASCADE',
+  })
   changeHistoryItems: TaskChangeHistory[]
 }

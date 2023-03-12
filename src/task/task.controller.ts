@@ -13,7 +13,6 @@ import { CreateTaskDto } from './dto/create-task.dto'
 import { UpdateTaskDto } from './dto/update-task.dto'
 import {
   ApiCreatedResponse,
-  ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
 } from '@nestjs/swagger'
@@ -50,7 +49,7 @@ export class TaskController {
   }
 
   @Delete(':id')
-  @ApiNoContentResponse()
+  @ApiOkResponse()
   @ApiNotFoundResponse()
   remove(@Param('id') id: string) {
     return this.taskService.remove(+id)
