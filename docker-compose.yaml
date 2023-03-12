@@ -1,0 +1,38 @@
+version: '3.1'
+
+services:
+  db:
+    image: postgres:15-alpine
+    restart: always
+    command: ["postgres", "-c", "log_statement=all"]
+    environment:
+      - POSTGRES_DB=todo-list
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./.db:/var/lib/postgresql/data
+    networks:
+      - todo-list-network
+
+  todo-list-backend:
+    image: todo-list:latest
+    restart: always
+    depends_on:
+      - db
+    environment:
+      - DB_HOST=db
+      - NODE_ENV=local
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=postgres
+      - DB_DATABASE=todo-list
+    ports:
+      - '3000:3000'
+    networks:
+      - todo-list-network
+
+networks:
+  todo-list-network:
+    driver: bridge
